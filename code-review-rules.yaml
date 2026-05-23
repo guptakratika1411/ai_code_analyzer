@@ -1,0 +1,244 @@
+staticCodeReviewRules:
+  projectName: "Python Code Review Rules"
+  description: "SonarQube-like static code analysis rules for Python"
+  
+  codeQuality:
+    - rule: naming_conventions
+      description: "Enforce PEP 8 naming conventions (snake_case for functions/variables, PascalCase for classes)"
+      severity: info
+      enabled: true
+      pattern: "^[a-z_][a-z0-9_]*$"
+    
+    - rule: line_length
+      description: "Maximum line length should not exceed 120 characters"
+      severity: info
+      enabled: true
+      threshold: 120
+    
+    - rule: duplicated_code
+      description: "Detect duplicated code blocks (3+ identical lines)"
+      severity: major
+      enabled: true
+      threshold: 3
+    
+    - rule: cyclomatic_complexity
+      description: "Flag functions exceeding cyclomatic complexity threshold"
+      severity: major
+      enabled: true
+      threshold: 10
+    
+    - rule: cognitive_complexity
+      description: "Measure cognitive complexity of functions"
+      severity: major
+      enabled: true
+      threshold: 15
+    
+    - rule: trailing_whitespace
+      description: "Remove trailing whitespace from lines"
+      severity: minor
+      enabled: true
+    
+    - rule: unused_imports
+      description: "Remove unused import statements"
+      severity: minor
+      enabled: true
+    
+    - rule: multiple_imports_per_line
+      description: "Each import should be on a separate line"
+      severity: info
+      enabled: true
+
+  security:
+    - rule: hardcoded_credentials
+      description: "Detect hardcoded passwords, API keys, and tokens"
+      severity: critical
+      enabled: true
+      patterns: ["password", "api_key", "secret", "token", "pwd"]
+    
+    - rule: sql_injection
+      description: "Identify unsafe SQL queries using string formatting"
+      severity: critical
+      enabled: true
+    
+    - rule: os_command_injection
+      description: "Flag unsafe os.system() and subprocess calls with user input"
+      severity: critical
+      enabled: true
+    
+    - rule: pickle_usage
+      description: "Warn against using pickle with untrusted data"
+      severity: major
+      enabled: true
+    
+    - rule: eval_exec_usage
+      description: "Flag dangerous eval() and exec() functions"
+      severity: critical
+      enabled: true
+    
+    - rule: weak_cryptography
+      description: "Identify use of weak cryptographic algorithms"
+      severity: critical
+      enabled: true
+      patterns: ["MD5", "SHA1", "DES"]
+
+  bugDetection:
+    - rule: comparison_with_none
+      description: "Use 'is None' instead of '== None'"
+      severity: major
+      enabled: true
+    
+    - rule: comparison_with_true_false
+      description: "Use 'if x:' instead of 'if x == True'"
+      severity: minor
+      enabled: true
+    
+    - rule: mutable_default_arguments
+      description: "Avoid mutable default arguments (list, dict, set)"
+      severity: major
+      enabled: true
+    
+    - rule: unreachable_code
+      description: "Detect unreachable code after return/raise/break"
+      severity: major
+      enabled: true
+    
+    - rule: bare_except
+      description: "Avoid bare 'except:' - specify exception types"
+      severity: major
+      enabled: true
+    
+    - rule: broad_except
+      description: "Avoid catching too broad exceptions (Exception, BaseException)"
+      severity: major
+      enabled: true
+    
+    - rule: variable_shadowing
+      description: "Flag variables that shadow built-in names or outer scope variables"
+      severity: minor
+      enabled: true
+
+  maintainability:
+    - rule: function_length
+      description: "Flag functions exceeding line length threshold"
+      severity: minor
+      enabled: true
+      threshold: 50
+    
+    - rule: function_parameters
+      description: "Limit number of function parameters"
+      severity: minor
+      enabled: true
+      threshold: 5
+    
+    - rule: class_complexity
+      description: "Flag classes with too many methods"
+      severity: minor
+      enabled: true
+      threshold: 15
+    
+    - rule: indentation_consistency
+      description: "Enforce consistent indentation (4 spaces per PEP 8)"
+      severity: info
+      enabled: true
+      spaces: 4
+    
+    - rule: nested_depth
+      description: "Limit nesting depth of control structures"
+      severity: minor
+      enabled: true
+      threshold: 4
+
+  bestPractices:
+    - rule: docstring_coverage
+      description: "Enforce docstrings for modules, classes, and functions"
+      severity: info
+      enabled: true
+      threshold: 80
+    
+    - rule: type_hints
+      description: "Encourage type hints for better code clarity"
+      severity: info
+      enabled: true
+    
+    - rule: missing_error_handling
+      description: "Ensure proper exception handling in critical paths"
+      severity: major
+      enabled: true
+    
+    - rule: print_statements
+      description: "Avoid print() in production code - use logging instead"
+      severity: minor
+      enabled: true
+    
+    - rule: test_coverage
+      description: "Maintain minimum code coverage percentage"
+      severity: major
+      enabled: true
+      threshold: 80
+    
+    - rule: commented_code
+      description: "Remove or fix commented-out code blocks"
+      severity: info
+      enabled: true
+    
+    - rule: todo_comments
+      description: "Track TODO, FIXME, and XXX comments"
+      severity: info
+      enabled: true
+
+  pythonSpecific:
+    - rule: list_comprehension
+      description: "Prefer list comprehensions over loops for readability"
+      severity: info
+      enabled: true
+    
+    - rule: global_variables
+      description: "Minimize usage of global variables"
+      severity: minor
+      enabled: true
+    
+    - rule: lambda_complexity
+      description: "Keep lambda functions simple"
+      severity: minor
+      enabled: true
+    
+    - rule: f_string_usage
+      description: "Use f-strings instead of .format() or % formatting"
+      severity: info
+      enabled: true
+    
+    - rule: generator_usage
+      description: "Consider using generators for memory efficiency"
+      severity: info
+      enabled: true
+    
+    - rule: star_imports
+      description: "Avoid 'from module import *' - import specific names"
+      severity: major
+      enabled: true
+    
+    - rule: property_usage
+      description: "Use @property decorator for computed attributes"
+      severity: info
+      enabled: true
+    
+    - rule: context_managers
+      description: "Use 'with' statement for resource management"
+      severity: major
+      enabled: true
+
+  performanceIssues:
+    - rule: string_concatenation
+      description: "Use ''.join() for string concatenation in loops"
+      severity: minor
+      enabled: true
+    
+    - rule: unnecessary_list_creation
+      description: "Avoid creating unnecessary lists"
+      severity: minor
+      enabled: true
+    
+    - rule: inefficient_loops
+      description: "Identify and optimize inefficient loop patterns"
+      severity: minor
+      enabled: true
